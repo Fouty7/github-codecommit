@@ -23,7 +23,7 @@ jobs:
     - name: Install git-remote-codecommit
       run: |
         pip install git-remote-codecommit    
-    - name: Configure Git to use git-remote-codecommit
+    - name: Sync with AWS CodeCommit
       run: |
         git config --global credential.helper '!aws codecommit credential-helper $@'
         git config --global credential.UseHttpPath true
