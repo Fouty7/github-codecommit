@@ -31,4 +31,3 @@ jobs:
         git config --global credential.UseHttpPath true
         git remote add aws codecommit::us-east-2://test-github-sync
         git push aws main
-        fi
