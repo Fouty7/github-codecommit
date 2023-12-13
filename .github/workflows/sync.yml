@@ -25,5 +25,11 @@ jobs:
         git config --global credential.helper '!aws codecommit credential-helper $@'
         git config --global credential.UseHttpPath true
         git remote add aws https://git-codecommit.us-east-2.amazonaws.com/v1/repos/test-github-sync
-        git pull aws main --allow-unrelated-histories
-        git push aws main
+        git fetch aws
+        if git show-ref --quiet refs/remotes/aws/main; then
+          echo "Main branch exists in AWS CodeCommit. Pushing changes..."
+          git push aws main
+        else
+          echo "Main branch does not exist in AWS CodeCommit. Creating and pushing changes..."
+          git push aws HEAD:main
+        fi
