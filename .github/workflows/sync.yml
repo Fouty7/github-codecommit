@@ -20,9 +20,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
 
-    - name: Push to AWS CodeCommit
+    - name: Sync with AWS CodeCommit
       run: |
         git config --global credential.helper '!aws codecommit credential-helper $@'
         git config --global credential.UseHttpPath true
         git remote add aws https://git-codecommit.us-east-2.amazonaws.com/v1/repos/test-github-sync
+        git pull aws main --allow-unrelated-histories
         git push aws main
